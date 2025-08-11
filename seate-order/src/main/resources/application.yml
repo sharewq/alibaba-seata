@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: order
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seate_order?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: Wq123456
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.255.60.54:8848
+        namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+        username: nacos
+        password: nacos
+#    alibaba:
+#      seata:
+#        tx-service-group: my_tx_group
+
+seata:
+  enabled: true
+  application-id: order-service
+  tx-service-group: my_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 10.255.60.54:8848
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  config:
+    type: nacos
+    nacos:
+      server-addr: 10.255.60.54:8848
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos

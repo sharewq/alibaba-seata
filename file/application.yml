@@ -1,0 +1,74 @@
+server:
+  port: 7091
+
+spring:
+  application:
+    name: seata-server
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: ${user.home}/logs/seata
+  extend:
+    logstash-appender:
+      destination: 127.0.0.1:4560
+    kafka-appender:
+      bootstrap-servers: 127.0.0.1:9092
+      topic: logback_to_logstash
+
+console:
+  user:
+    username: seata
+    password: seata
+
+seata:
+  config:
+    # ✅ 配置中心使用 nacos
+    type: nacos
+    nacos:
+      server-addr: 10.255.60.54:8848
+      group: SEATA_GROUP
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      username: nacos
+      password: nacos
+      data-id: seataServer.properties
+
+  registry:
+    # ✅ 注册中心使用 nacos
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 10.255.60.54:8848
+      group: SEATA_GROUP
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      username: nacos
+      password: nacos
+      cluster: default
+
+  store:
+    # ✅ 使用 MySQL 存储全局事务数据
+    mode: db
+    db:
+      datasource: druid
+      db-type: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      user: root
+      password: Wq123456
+      min-conn: 5
+      max-conn: 30
+      global-table: global_table
+      branch-table: branch_table
+      lock-table: lock_table
+      distributed-lock-table: distributed_lock
+      query-limit: 100
+      max-wait: 5000
+
+  server:
+    service-port: 8091  # 默认为 port + 1000，可自定义
+
+  security:
+    secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+    tokenValidityInMilliseconds: 1800000
+    ignore:
+      urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.ico,/console-fe/public/**,/api/v1/auth/login

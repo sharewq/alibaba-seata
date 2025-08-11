@@ -1,0 +1,55 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: stock
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seate_stock?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: Wq123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.255.60.54:8848
+        namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 10.255.60.54:8848
+        namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+        username: nacos
+        password: nacos
+
+  config:
+    import:
+      - optional:nacos:application-prod.yml
+      - optional:nacos:${spring.application.name}-prod.yml
+#    alibaba:
+#      seata:
+#        tx-service-group: my_tx_group
+
+seata:
+  enabled: true
+  application-id: stock-service
+  tx-service-group: my_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 10.255.60.54:8848
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  config:
+    type: nacos
+    nacos:
+      server-addr: 10.255.60.54:8848
+      namespace: 50c3be5d-da46-4ae0-893e-1d960bf2b047
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
