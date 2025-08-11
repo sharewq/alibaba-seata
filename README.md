@@ -20,3 +20,11 @@
    7.5 注册seata
    register TM success.
    register RM success.
+
+
+#  结果验证
+## 库存创建 减少订单钱 验证订单回滚
+http://127.0.0.1:8081/stock/save
+
+## 订单创建 减少库存 验证库存回滚
+http://127.0.0.1:8081/stock/save
