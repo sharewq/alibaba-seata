@@ -9,7 +9,7 @@
 # 启动/停止
    sh bin/seata-server.sh
    sh bin/seata-server.sh stop
-# 验证
+# 验证seata
    http://localhost:7091
 # 服务配置
    7.1 需要@GlobalTransactional(name = "create-order", rollbackFor = Exception.class)
