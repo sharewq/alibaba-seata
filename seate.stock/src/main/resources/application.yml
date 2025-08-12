@@ -29,10 +29,8 @@ spring:
     import:
       - optional:nacos:application-prod.yml
       - optional:nacos:${spring.application.name}-prod.yml
-#    alibaba:
-#      seata:
-#        tx-service-group: my_tx_group
 
+# 分布式事务配置-AT模式，需要每个库有 undo_log
 seata:
   enabled: true
   application-id: stock-service

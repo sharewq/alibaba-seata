@@ -11,6 +11,7 @@
    sh bin/seata-server.sh stop
 # 验证seata
    http://localhost:7091
+    密码在seata配置文件中配置
 # 服务配置
    7.1 需要@GlobalTransactional(name = "create-order", rollbackFor = Exception.class)
    7.2 需要配置seata
