@@ -3,6 +3,7 @@ package org.example.order.controller;
 import org.example.order.dto.Orders;
 import org.example.order.mapper.OrdersMapper;
 import org.example.order.service.OrderService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +20,18 @@ public class OrderController {
     @Resource
     public OrderService orderService;
 
+    /**
+     * 获取订单信息
+     * http://localhost:8080/order/get
+     *
+     * @return
+     */
     @RequestMapping("/order/get")
-    public String cpuHig() {
-        List<Orders> ordersList = ordersMapper.selectList(null);
-        System.out.println("order,size:" + ordersList.size());
+    @Transactional(rollbackFor = Exception.class)
+    public String mybatisCacheTest() {
+        Orders orders1 = ordersMapper.selectById(1);
+        Orders orders2 = ordersMapper.selectById(1);
+        System.out.println(orders1 == orders2); // true，缓存生效
         return "order";
     }
 

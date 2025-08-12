@@ -42,3 +42,8 @@ seata:
       group: SEATA_GROUP
       username: nacos
       password: nacos
+
+# print sql log
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
