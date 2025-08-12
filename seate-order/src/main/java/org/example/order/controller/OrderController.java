@@ -21,14 +21,28 @@ public class OrderController {
     public OrderService orderService;
 
     /**
-     * 获取订单信息
-     * http://localhost:8080/order/get
+     * 获取订单信息：一级缓存验证
+     * http://localhost:8080/order/cache/one
      *
      * @return
      */
-    @RequestMapping("/order/get")
+    @RequestMapping("/order/cache/one")
     @Transactional(rollbackFor = Exception.class)
-    public String mybatisCacheTest() {
+    public String mybatisCacheOneTest() {
+        Orders orders1 = ordersMapper.selectById(1);
+        Orders orders2 = ordersMapper.selectById(1);
+        System.out.println(orders1 == orders2); // true，缓存生效
+        return "order";
+    }
+
+    /**
+     * 获取订单信息：二级缓存验证，不添加事务，缓存失效
+     * http://localhost:8082/order/cache/two
+     *
+     * @return
+     */
+    @RequestMapping("/order/cache/two")
+    public String mybatisCacheTwoTest() {
         Orders orders1 = ordersMapper.selectById(1);
         Orders orders2 = ordersMapper.selectById(1);
         System.out.println(orders1 == orders2); // true，缓存生效

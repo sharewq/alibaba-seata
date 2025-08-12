@@ -46,4 +46,5 @@ seata:
 # print sql log
 mybatis-plus:
   configuration:
+    cache-enabled: true  # 二级缓存开启
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
